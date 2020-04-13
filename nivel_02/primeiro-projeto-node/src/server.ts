@@ -1,8 +1,10 @@
-import express from 'express';
+import express, { json } from 'express';
 
 import Route from './routes';
 
 const app = express();
+
+app.use(express.json());
 app.use(Route);
 
 app.listen(3333, () => {
