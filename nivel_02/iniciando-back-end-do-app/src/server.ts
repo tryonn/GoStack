@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 
-import express, { json } from 'express';
+import express from 'express';
 
 import Route from './routes';
 
