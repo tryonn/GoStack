@@ -3,9 +3,20 @@ import { parseISO } from 'date-fns';
 import AppointmentsRepository from '../repositories/AppointmentsRepository';
 import CreateAppointmentService from '../services/CreateAppointmentService';
 import { getCustomRepository } from 'typeorm';
+import ensureAuthenticated from '../middlewares/ensureAuthenticated';
 
+
+interface TokenPayload {
+
+  iat: number,
+  exp: number,
+  sub: string
+}
 
 const appointmentsRouter = Router();
+
+
+appointmentsRouter.use(ensureAuthenticated);
 
 
 appointmentsRouter.get('/', async (reques, response) => {
