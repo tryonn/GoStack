@@ -30,6 +30,6 @@ yarn-error.log*
 .ide/
 .vscode/
 build/
-tmp/*
-!tmp/.gitkeep
+/nivel_02/iniciando-back-end-do-app/tmp/*
+/nivel_02/iniciando-back-end-do-app/!tmp/.gitkeep
 
