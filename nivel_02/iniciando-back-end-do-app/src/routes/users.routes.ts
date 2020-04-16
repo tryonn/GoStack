@@ -11,7 +11,6 @@ const usersRouter = Router();
 const upload = multer(uploadConfig);
 
 usersRouter.post('/', async (request, response) => {
-  try {
     const { name, email, password } = request.body;
 
     const createUser = new CreateUserService();
@@ -25,16 +24,9 @@ usersRouter.post('/', async (request, response) => {
     delete user.password;
 
     return response.json(user);
-
-  } catch (e) {
-    return response.status(400).json({ error: e.message });
-  }
-
 });
 
 usersRouter.patch('/avatar', ensureAuthenticated, upload.single('avatar'), async (request, response) => {
-
-  try {
 
     const updateUserAvatarService = new UpdateUserAvatarService();
 
@@ -46,10 +38,6 @@ usersRouter.patch('/avatar', ensureAuthenticated, upload.single('avatar'), async
     delete user.password;
 
     return response.json({ user });
-
-  } catch(e) {
-    return response.status(400).json({ error: e.message });
-  }
 });
 
 export default usersRouter;
