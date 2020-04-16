@@ -5,14 +5,6 @@ import CreateAppointmentService from '../services/CreateAppointmentService';
 import { getCustomRepository } from 'typeorm';
 import ensureAuthenticated from '../middlewares/ensureAuthenticated';
 
-
-interface TokenPayload {
-
-  iat: number,
-  exp: number,
-  sub: string
-}
-
 const appointmentsRouter = Router();
 
 
