@@ -1,9 +1,11 @@
-import React, { useRef, useCallback } from 'react';
+import React, { useRef, useCallback, useContext } from 'react';
 import * as Yup from 'yup';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 
 import { FiLogIn, FiMail, FiLock } from 'react-icons/fi'
+
+import AuthContext from '../../context/AuthContext';
 
 import getValidationErrors from '../../utils/getValidationErrors';
 
@@ -18,10 +20,13 @@ import Input from '../../components/Input';
 const SignIn: React.FC = () => {
 
 
+    const { name } = useContext(AuthContext);
 
     const formRef = useRef<FormHandles>(null);
 
-    const handleOnSubmit = useCallback( async (data: object) => {
+    console.log(name);
+
+    const handleOnSubmit = useCallback(async (data: object) => {
 
         try {
             formRef.current?.setErrors({});
@@ -41,25 +46,26 @@ const SignIn: React.FC = () => {
 
 
     return (
-    <Container>
-        <Content>
-            <img src={logoImg} alt="GoBarber"/>
+        <Container>
+            <Content>
+                <img src={logoImg} alt="GoBarber" />
 
-            <Form ref={formRef} onSubmit={handleOnSubmit}>
-                <h1>Faça seu logon</h1>
-                <Input name="email" icon={FiMail} placeholder="E-mail"/>
-                <Input name="password" type="password" icon={FiLock} placeholder="Senha"/>
-                <Button type="submit">Entrar</Button>
-                <a href="forgot">Esqueci minha senha</a>
-            </Form>
+                <Form ref={formRef} onSubmit={handleOnSubmit}>
+                    <h1>Faça seu logon</h1>
+                    <Input name="email" icon={FiMail} placeholder="E-mail" />
+                    <Input name="password" type="password" icon={FiLock} placeholder="Senha" />
+                    <Button type="submit">Entrar</Button>
+                    <a href="forgot">Esqueci minha senha</a>
+                </Form>
 
-            <a href="">
-                <FiLogIn/>
+                <a href="">
+                    <FiLogIn />
                 Criar conta
             </a>
-        </Content>
-        <Background />
-    </Container>
-)};
+            </Content>
+            <Background />
+        </Container>
+    )
+};
 
 export default SignIn;
