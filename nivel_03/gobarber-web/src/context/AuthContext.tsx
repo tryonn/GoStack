@@ -1,7 +1,11 @@
-import React, { createContext, useCallback } from 'react';
+import React, { createContext, useCallback, useState } from 'react';
 
 import API from '../services/api';
 
+interface AuthState {
+    token: string;
+    user: Object;
+}
 
 interface SignInCredencials {
     email: string;
@@ -9,13 +13,24 @@ interface SignInCredencials {
 }
 
 interface AuthContextData {
-    name: string;
+    user: Object;
     signIn(credencials: SignInCredencials): Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 const AuthProvider: React.FC = ({ children }) => {
+
+    // só funciona quando o usuario der refresh ba pagina
+    const [data, setData] = useState<AuthState>(() => {
+        const token = localStorage.getItem('@GoBarber:token');
+        const user = localStorage.getItem('@Gobarber:user');
+        if (token && user) {
+            return { token, user: JSON.parse(user) };
+        }
+        return {} as AuthState;
+    });
+
     const signIn = useCallback(async ({ email, password }) => {
 
         const response = await API.post('sessions', {
@@ -23,15 +38,19 @@ const AuthProvider: React.FC = ({ children }) => {
             password,
         });
 
+        const { token, user } = response.data;
 
-        console.log(response.data);
+        localStorage.setItem('@GoBarber:token', token);
+        localStorage.setItem('@Gobarber:user', JSON.stringify(user));
+
+        setData({ token, user });
 
     }, []);
 
 
 
     return (
-        <AuthContext.Provider value={{ name: 'Simão', signIn }}>
+        <AuthContext.Provider value={{ user: data.user, signIn }}>
             {children}
         </AuthContext.Provider>
     );
