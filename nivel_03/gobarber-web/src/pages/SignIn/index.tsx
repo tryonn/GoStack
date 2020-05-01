@@ -5,7 +5,7 @@ import { Form } from '@unform/web';
 
 import { FiLogIn, FiMail, FiLock } from 'react-icons/fi'
 
-import AuthContext from '../../context/AuthContext';
+import { AuthContext } from '../../context/AuthContext';
 
 import getValidationErrors from '../../utils/getValidationErrors';
 
@@ -16,17 +16,16 @@ import { Container, Content, Background } from './styles';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 
+interface SignInFormData {
+    email: string;
+    password: string;
+}
 
 const SignIn: React.FC = () => {
-
-
-    const { name } = useContext(AuthContext);
-
     const formRef = useRef<FormHandles>(null);
+    const { signIn } = useContext(AuthContext);
 
-    console.log(name);
-
-    const handleOnSubmit = useCallback(async (data: object) => {
+    const handleOnSubmit = useCallback(async (data: SignInFormData) => {
 
         try {
             formRef.current?.setErrors({});
@@ -38,11 +37,18 @@ const SignIn: React.FC = () => {
 
             await schema.validate(data, { abortEarly: false, });
 
+            signIn(
+                {
+                    email: data.email,
+                    password: data.password,
+                }
+            );
+
         } catch (e) {
             const err = getValidationErrors(e);
             formRef.current?.setErrors(err);
         }
-    }, []);
+    }, [signIn]);
 
 
     return (
