@@ -1,45 +1,38 @@
 import React from 'react';
 import { FiAlertCircle, FiXCircle } from 'react-icons/fi';
 
+import { ToastMessage } from '../../hook/Toast';
+
 import { Container, Toast } from './styles';
 
-const ToastContainer: React.FC = () => {
+interface ToastContainerProps {
+    message: ToastMessage[];
+}
+
+const ToastContainer: React.FC<ToastContainerProps> = ({ message }) => {
     return (
         <Container>
-            <Toast hasDescription>
-                <FiAlertCircle size={20} />
-                    <div>
-                        <strong>Aconteceu um erro</strong>
-                    </div>
+            {
+                message.map(m => (
 
-                    <button type="button">
-                        <FiXCircle size={18} />
-                    </button>
-            </Toast>
+                    <Toast
+                        key={m.id}
+                        type={m.type}
+                        hasDescription={!!m.description}
+                    >
+                        <FiAlertCircle size={20} />
+                        <div>
+                            <strong>{m.title}</strong>
+                            {m.description && <p>{m.description}</p> }
+                        </div>
 
-            <Toast type="success" hasDescription={false}>
-                <FiAlertCircle size={20} />
-                    <div>
-                        <strong>Aconteceu um erro</strong>
-                        <p>Não foi possivel fazaer login</p>
-                    </div>
+                        <button type="button">
+                            <FiXCircle size={18} />
+                        </button>
+                    </Toast>
 
-                    <button type="button">
-                        <FiXCircle size={18} />
-                    </button>
-            </Toast>
-
-            <Toast type="error" hasDescription>
-                <FiAlertCircle size={20} />
-                    <div>
-                        <strong>Aconteceu um erro</strong>
-                        <p>Não foi possivel fazaer login</p>
-                    </div>
-
-                    <button type="button">
-                        <FiXCircle size={18} />
-                    </button>
-            </Toast>
+                ))
+            }
         </Container>
     )
 };
