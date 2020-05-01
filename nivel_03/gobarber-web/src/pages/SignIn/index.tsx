@@ -5,7 +5,7 @@ import { Form } from '@unform/web';
 
 import { FiLogIn, FiMail, FiLock } from 'react-icons/fi'
 
-import { useAuth } from '../../context/AuthContext';
+import { useAuth } from '../../hook/AuthContext';
 
 import getValidationErrors from '../../utils/getValidationErrors';
 
@@ -45,8 +45,10 @@ const SignIn: React.FC = () => {
             );
 
         } catch (e) {
-            const err = getValidationErrors(e);
-            formRef.current?.setErrors(err);
+            if (e instanceof Yup.ValidationError){
+                const err = getValidationErrors(e);
+                formRef.current?.setErrors(err);
+            }
         }
     }, [signIn]);
 
