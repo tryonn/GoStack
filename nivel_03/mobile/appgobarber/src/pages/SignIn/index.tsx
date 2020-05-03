@@ -1,12 +1,16 @@
 import React from 'react';
-import { View } from 'react-native';
+import { Image } from 'react-native';
 
 import { Container } from './styles';
+
+import logoImg from '../../assets/logo.png';
 
 
 const SingIn: React.FC = () => (
 
-    <View />
+    <Container>
+        <Image source={logoImg}/>
+    </Container>
 
 );
 
