@@ -4,10 +4,17 @@
 /nivel_01/backend/node_modules
 /nivel_01/frontend/node_modules
 /nivel_01/mobile/node_modules
+
 /nivel_02/primeiro-projeto-node/node_modules
 /nivel_02/iniciando-back-end-do-app/node_modules
-/nivel_01/backend/github-explorer/node_modules
-/nivel_01/backend/gobarber-web/node_modules
+
+
+/nivel_03/github-explorer/node_modules
+/nivel_03/gobarber-web/node_modules
+/nivel_03/mobile/appgobarber/node_modules
+
+
+
 /.pnp
 .pnp.js
 
