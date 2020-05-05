@@ -76,7 +76,7 @@ const Input: React.RefForwardingComponent<InputRef, InputProps> = ({ name, icon,
 
 
     return (
-        <Container isFocused={isFocused}>
+        <Container isError={!!error} isFilled={isFilled} isFocused={isFocused}>
             <Icon name={icon} size={20} color={isFocused || isFilled ? '#ff9000' : '#666360'} />
             <TextInput
                 ref={inputElementRef}

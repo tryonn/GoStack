@@ -3,13 +3,16 @@ import React, { useCallback, useRef } from 'react';
 import Button from '../../components/button';
 import Input from '../../components/input';
 
+import * as Yup from 'yup';
+
 import {
         Image,
         View,
         KeyboardAvoidingView,
         Platform,
         ScrollView,
-        TextInput
+        TextInput,
+        Alert
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 
@@ -20,6 +23,8 @@ import { FormHandles } from '@unform/core';
 
 import logoImg from '../../assets/logo.png';
 
+import getValidationErrors from '../../utils/getValidationErrors';
+
 import {
     Container,
     Title,
@@ -28,6 +33,13 @@ import {
     BackToSigIn,
     BackToSigInText
 } from './styles';
+
+
+interface SignUpForm {
+    name: String;
+    email: String;
+    password: String;
+}
 
 const SingUp: React.FC = () => {
 
@@ -38,11 +50,58 @@ const SingUp: React.FC = () => {
 
     const navigation = useNavigation();
 
-    const handleSubmit = useCallback((data: Object) => {
 
-        console.log(data);
+    const handleSubmit = useCallback( async (data: SignUpForm) => {
 
-    }, [])
+        try {
+            formRef.current?.setErrors({});
+
+            const schema = Yup.object().shape({
+                name: Yup.string().required('Nome Obrigatório'),
+                email: Yup.string().required('Email obrigatório').email('Digite um email válido'),
+                password: Yup.string().required('Senha obrigatória').min(6, 'Minimo de 6 dígitos')
+            });
+
+            await schema.validate(data, { abortEarly: false, });
+
+           // await api.post('/users', data);
+
+           /* addToast({
+                type: 'success',
+                title: 'Cadastro',
+                description: 'Você já pode fazer seu logon no GoBarber'
+            });*/
+
+
+
+        } catch (e) {
+            if (e instanceof Yup.ValidationError){
+                const err = getValidationErrors(e);
+                formRef.current?.setErrors(err);
+            }
+
+           /* addToast({
+                type: 'info',
+                title: 'Erro no cadastro',
+                description: 'Ocorreu um erro  ao fazer cadastro. Tente novamente',
+            });*/
+
+            Alert.alert(
+                "Alert Title",
+                "My Alert Msg",
+                [
+                  {
+                    text: "Cancel",
+                    onPress: () => console.log("Cancel Pressed"),
+                    style: "cancel"
+                  },
+                  { text: "OK", onPress: () => console.log("OK Pressed") }
+                ],
+                { cancelable: false }
+              );
+
+        }
+    }, []);
 
     return (
         <>
