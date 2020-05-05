@@ -6,6 +6,8 @@ import Input from '../../components/input';
 import { Image, View, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 
+import { useNavigation } from '@react-navigation/native';
+
 
 import logoImg from '../../assets/logo.png';
 
@@ -19,6 +21,8 @@ import {
     } from './styles';
 
 const SingIn: React.FC = () => {
+
+    const navigation = useNavigation();
 
     return (
         <>
@@ -49,7 +53,7 @@ const SingIn: React.FC = () => {
                         </ForgotPassword>
                     </Container>
 
-                    <CreateAccountButton onPress={ () => {} }>
+                    <CreateAccountButton onPress={ () => navigation.navigate('SignUp') }>
                         <Icon name="log-in" size={20} color="#ff9000"/>
                         <CreateAccountButtonText>Criar uma conta</CreateAccountButtonText>
                     </CreateAccountButton>
