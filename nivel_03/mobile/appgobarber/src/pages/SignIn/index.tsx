@@ -12,6 +12,8 @@ import { FormHandles } from '@unform/core';
 
 import getValidationErrors from '../../utils/getValidationErrors';
 
+import { useAuth } from '../../hook/Auth';
+
 import * as Yup from 'yup';
 
 import logoImg from '../../assets/logo.png';
@@ -38,9 +40,16 @@ const SingIn: React.FC = () => {
 
     const navigation = useNavigation();
 
+    const { signIn, user } = useAuth();
+
+
+
     const handleSubmit = useCallback(async (data: SignInFormData) => {
 
         try {
+
+            console.log(user);
+
             formRef.current?.setErrors({});
 
             const schema = Yup.object().shape({
@@ -50,12 +59,12 @@ const SingIn: React.FC = () => {
 
             await schema.validate(data, { abortEarly: false, });
 
-           /* await signIn(
+           await signIn(
                 {
                     email: data.email,
                     password: data.password,
                 }
-            );*/
+            );
 
 
 

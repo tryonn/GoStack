@@ -3,6 +3,8 @@ import React, { useCallback, useRef } from 'react';
 import Button from '../../components/button';
 import Input from '../../components/input';
 
+import api from '../../services/api';
+
 import * as Yup from 'yup';
 
 import {
@@ -64,20 +66,24 @@ const SingUp: React.FC = () => {
 
             await schema.validate(data, { abortEarly: false, });
 
-           // await api.post('/users', data);
+            console.log(data);
 
-           /* addToast({
-                type: 'success',
-                title: 'Cadastro',
-                description: 'Você já pode fazer seu logon no GoBarber'
-            });*/
+           await api.post('/users', data);
+
+           Alert.alert(
+               'Cadastro',
+               'Você já pode fazer seu logon no GoBarber',
+           );
 
 
+           navigation.goBack();
 
         } catch (e) {
             if (e instanceof Yup.ValidationError){
+
                 const err = getValidationErrors(e);
                 formRef.current?.setErrors(err);
+                return ;
             }
 
            /* addToast({
@@ -87,17 +93,8 @@ const SingUp: React.FC = () => {
             });*/
 
             Alert.alert(
-                "Alert Title",
-                "My Alert Msg",
-                [
-                  {
-                    text: "Cancel",
-                    onPress: () => console.log("Cancel Pressed"),
-                    style: "cancel"
-                  },
-                  { text: "OK", onPress: () => console.log("OK Pressed") }
-                ],
-                { cancelable: false }
+                "Erro no Cadastro",
+                "Ocorreu um erroao fazer cadastro, tente novamente",
               );
 
         }
@@ -165,7 +162,7 @@ const SingUp: React.FC = () => {
 
                             <Button onPress={() => {
                                 formRef.current?.submitForm();
-                             }}>Cadastrr</Button>
+                             }}>Cadastro</Button>
                         </Form>
                     </Container>
                 </ScrollView>
