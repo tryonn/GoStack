@@ -16,6 +16,7 @@ interface SignInCredencials {
 
 interface AuthContextData {
     user: Object;
+    loading: boolean;
     signIn(credencials: SignInCredencials): Promise<void>;
     singnOut(): void;
 }
@@ -27,6 +28,8 @@ const AuthProvider: React.FC = ({ children }) => {
     // só funciona quando o usuario der refresh ba pagina
     const [data, setData] = useState<AuthState>( {} as AuthState);
 
+    const [loading, setLoading] = useState(true);
+
     useEffect(() => {
         async function loadStoragedData(): Promise<void> {
             const [token, user] = await AsyncStorage.multiGet([
@@ -37,6 +40,8 @@ const AuthProvider: React.FC = ({ children }) => {
             if (token[1] && user[1]){
                 setData({ token: token[1], user: JSON.parse(user[1]) });
             }
+
+            setLoading(false);
         }
 
         loadStoragedData();
@@ -69,7 +74,7 @@ const AuthProvider: React.FC = ({ children }) => {
 
 
     return (
-        <AuthContext.Provider value={{ user: data.user, signIn, singnOut }}>
+        <AuthContext.Provider value={{ user: data.user, loading, signIn, singnOut }}>
             {children}
         </AuthContext.Provider>
     );
