@@ -6,7 +6,7 @@ import { View, StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native'
 import AppProvider from './hook';
 
-import Route from './routes';
+import Route from './routes/auth.routes';
 
 const App: React.FC = () => (
 
