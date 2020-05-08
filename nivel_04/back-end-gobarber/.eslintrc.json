@@ -30,6 +30,12 @@
             {
                 "ts": "never"
             }
+        ],
+        "@typescript-eslint/interface-name-prefix": [
+            "error",
+            {
+                "prefixWith": "alway"
+            }
         ]
     },
     "settings": {
