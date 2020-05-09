@@ -9,6 +9,7 @@ import Route from './routes';
 import uploadConfig from '@config/upload';
 
 import '@shared/infra/typeorm/index';
+import '@shared/container';
 
 import AppError from '@shared/errors/AppError';
 

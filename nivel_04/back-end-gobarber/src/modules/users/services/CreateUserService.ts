@@ -4,6 +4,7 @@ import { hash } from 'bcryptjs';
 
 import AppError from '@shared/errors/AppError';
 import IUserRepository from "../repositories/IUserRepository";
+import { inject, injectable } from "tsyringe";
 
 interface IRequest {
   name: string,
@@ -11,9 +12,13 @@ interface IRequest {
   password: string
 }
 
+@injectable()
 class CreateUserService {
 
-  constructor(private usersRepository: IUserRepository) { };
+  constructor(
+    @inject('UsersRepository')
+    private usersRepository: IUserRepository
+  ) { };
 
   public async execute({ name, email, password }: IRequest): Promise<User> {
 
