@@ -5,15 +5,19 @@ import multer from 'multer';
 import uploadConfig from '@config/upload';
 
 import UpdateUserAvatarService from '@modules/users/services/UpdateUserAvatarService';
+import UsersRepository from '../../typeorm/repositories/UserRepository';
 
 
 const usersRouter = Router();
 const upload = multer(uploadConfig);
 
+
+
 usersRouter.post('/', async (request, response) => {
+  const userRepository = new UsersRepository;
   const { name, email, password } = request.body;
 
-  const createUser = new CreateUserService();
+  const createUser = new CreateUserService(userRepository);
 
   const user = await createUser.execute({
     name,
@@ -27,8 +31,9 @@ usersRouter.post('/', async (request, response) => {
 });
 
 usersRouter.patch('/avatar', ensureAuthenticated, upload.single('avatar'), async (request, response) => {
+  const userRepository = new UsersRepository;
 
-  const updateUserAvatarService = new UpdateUserAvatarService();
+  const updateUserAvatarService = new UpdateUserAvatarService(userRepository);
 
   const user = await updateUserAvatarService.execute({
     user_id: request.user.id,
