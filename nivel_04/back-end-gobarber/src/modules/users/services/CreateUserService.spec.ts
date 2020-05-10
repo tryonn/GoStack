@@ -37,7 +37,7 @@ describe('CreateUser', () => {
         password: '121212'
       }),
 
-    ).toBeInstanceOf(AppError);
+    ).rejects.toBeInstanceOf(AppError);
   });
 
 });
