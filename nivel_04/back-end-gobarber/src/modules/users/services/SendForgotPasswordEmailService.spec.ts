@@ -23,7 +23,7 @@ describe('SendForgotPasswordEmail', () => {
     });
 
 
-    expect(sendEmail).toHaveBeenCalledWith("sendMail");
+    expect(sendEmail).toHaveBeenCalled();
 
 
   });
