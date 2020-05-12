@@ -21,6 +21,13 @@ class SendForgotPasswordEmailService {
   ) { };
 
   public async execute({ email }: IRequest): Promise<void> {
+
+    const checkUser = await this.usersRepository.findByEmail(email);
+
+    if (!checkUser) {
+      throw new AppError('User does not exist');
+    }
+
     this.mailProvider.sendMail(email, "Pedido de recuperação de senha solicitado com sucesso.");
   }
 
