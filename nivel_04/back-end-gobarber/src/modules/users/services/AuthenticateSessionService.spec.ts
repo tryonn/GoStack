@@ -1,4 +1,4 @@
-import FakeUserRepository from '../repositories/Fakes/FakeUserRepository';
+import FakeUserRepository from '../repositories/Fakes/FakeUsersRepository';
 import AuthenticateSessionService from './AuthenticateSessionService';
 import CreateUserService from '../services/CreateUserService';
 

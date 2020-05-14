@@ -1,4 +1,4 @@
-import FakeUserRepository from '../repositories/Fakes/FakeUserRepository';
+import FakeUserRepository from '../repositories/Fakes/FakeUsersRepository';
 import CreateUserService from './CreateUserService';
 
 import AppError from '@shared/errors/AppError';
