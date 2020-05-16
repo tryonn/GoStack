@@ -34,12 +34,6 @@ class SendForgotPasswordEmailService {
 
     const { token } = await this.userTokenRepository.generate(user.id);
 
-
-    /*console.log(token);
-    console.log(user.name);
-    console.log(user.email);
-    */
-
     await this.mailProvider.sendMail({
       to: {
         name: user.name,

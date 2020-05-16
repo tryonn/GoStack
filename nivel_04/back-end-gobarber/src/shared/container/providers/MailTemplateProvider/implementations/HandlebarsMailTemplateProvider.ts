@@ -6,10 +6,10 @@ import IParseTemplateMialDTO from "../dtos/IParseTemplateMialDTO";
 
 class HandlebarsMailTemplateProvider implements IMailTemplateProvider {
 
-  public async parse({ template, variable }: IParseTemplateMialDTO): Promise<string> {
+  public async parse({ template, variables }: IParseTemplateMialDTO): Promise<string> {
 
     const parseTemplate = handlebars.compile(template);
-    return parseTemplate(variable);
+    return parseTemplate(variables);
   }
 
 }
