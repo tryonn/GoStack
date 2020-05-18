@@ -4,7 +4,7 @@ interface ITemplateVariables {
 
 export default interface IParseTemplateMialDTO {
 
-  template: string;
+  file: string;
   variables: ITemplateVariables;
 
 }
