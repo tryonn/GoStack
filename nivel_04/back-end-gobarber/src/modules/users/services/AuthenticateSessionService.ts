@@ -50,10 +50,8 @@ class AuthenticateSessionService {
       expiresIn,
     });
 
-    return {
-      user,
-      token,
-    }
+
+    return { user, token };
 
   }
 }

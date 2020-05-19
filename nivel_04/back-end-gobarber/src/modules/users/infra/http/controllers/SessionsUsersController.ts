@@ -11,9 +11,7 @@ export default class SessionsUsersController {
     const authenticateUser = container.resolve(AuthenticateSessionService);
     const { user, token } = await authenticateUser.execute({ email, password });
     delete user.password;
-    //return response.json({ user, token });
 
-    return response;
-
+    return response.json({ user, token });
   }
 }
