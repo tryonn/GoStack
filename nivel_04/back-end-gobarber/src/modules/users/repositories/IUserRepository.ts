@@ -1,8 +1,10 @@
 import User from '@modules/users/infra/typeorm/entities/User';
 import ICreateAppointmentsDTO from '../dtos/ICreateUserDTO';
 import ICreateUserDTO from '../dtos/ICreateUserDTO';
+import IFindAllProvidersDTO from '../dtos/IFindAllProvidersDTO';
 
 export default interface IUserRepository {
+
   findById(id: string): Promise<User | undefined>;
 
   findByEmail(email: string): Promise<User | undefined>;
@@ -10,4 +12,6 @@ export default interface IUserRepository {
   create(data: ICreateUserDTO): Promise<User>;
 
   save(user: User): Promise<User>;
+
+  findAllProviders(data: IFindAllProvidersDTO): Promise<User[]>;
 };
