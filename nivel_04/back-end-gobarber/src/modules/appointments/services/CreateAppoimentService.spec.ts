@@ -1,4 +1,4 @@
-import FakeAppointmentsRepository from '../repositories/fakes/FakesAppoimentsRepository';
+import FakeAppointmentsRepository from '../repositories/fakes/FakeAppoimentsRepository';
 import CreateAppointmentServices from './CreateAppointmentService';
 
 import AppError from '@shared/errors/AppError';
