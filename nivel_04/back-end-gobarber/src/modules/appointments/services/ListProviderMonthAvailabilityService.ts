@@ -3,6 +3,7 @@ import { injectable, inject } from 'tsyringe';
 import IUserRepository from "@modules/users/repositories/IUserRepository";
 import User from "@modules/users/infra/typeorm/entities/User";
 import IAppointmentsRepository from '../repositories/IAppointmentsRepository';
+import { getDaysInMonth, getDate } from "date-fns";
 
 interface IRequest {
   provider_id: string;
@@ -31,10 +32,26 @@ class ListProviderMonthAvailabilityService {
     });
 
 
-    console.log(appointmens);
+    const numberOfDayInMonth = getDaysInMonth(new Date(year, month - 1));
 
+    const eachDayArray = Array.from(
+      {
+        length: numberOfDayInMonth
+      },
+      (_, index) => index + 1,
+    );
 
-    return [{ day: 1, available: false }];
+    const availability = eachDayArray.map(day => {
+      const appoimentsInDay = appointmens.filter(appoinment => {
+        return getDate(appoinment.date) === day;
+      });
+      return {
+        day,
+        available: appoimentsInDay.length < 10,
+      };
+    });
+
+    return availability;
   }
 
 }
