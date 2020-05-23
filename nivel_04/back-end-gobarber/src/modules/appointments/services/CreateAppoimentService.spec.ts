@@ -43,5 +43,23 @@ describe('CreateAppointment', () => {
 
   });
 
+  it('should not be able to create an appointments on a past date', async () => {
+
+    const fakeAppointmentsRepository = new FakeAppointmentsRepository();
+    const createAppointmentServices = new CreateAppointmentServices(fakeAppointmentsRepository);
+
+    jest.spyOn(Date, 'now').mockImplementationOnce(() => {
+      return new Date(2020, 4, 10, 12).getTime();
+    });
+
+    await expect(
+      createAppointmentServices.execute({
+        date: new Date(2020, 4, 10, 11),
+        user_id: '121212',
+        provider_id: '212121'
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+  });
+
 });
 
