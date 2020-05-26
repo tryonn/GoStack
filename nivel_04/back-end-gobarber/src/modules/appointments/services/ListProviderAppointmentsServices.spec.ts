@@ -1,0 +1,44 @@
+import FakeAppointmentsRepository from '../repositories/fakes/FakeAppoimentsRepository';
+import ListProviderAppointmentsServices from './ListProviderAppointmentsServices';
+
+let fakeAppointmentsRepository: FakeAppointmentsRepository;
+let listProviderAppointmentService: ListProviderAppointmentsServices;
+
+describe('ListProviderAppointmentsServices', () => {
+
+  beforeEach(() => {
+
+    fakeAppointmentsRepository = new FakeAppointmentsRepository();
+    listProviderAppointmentService = new ListProviderAppointmentsServices(fakeAppointmentsRepository);
+
+  });
+
+
+  it('should be able to list the appointments on a specific day', async () => {
+
+    const app1 = await fakeAppointmentsRepository.create({
+      provider_id: 'provider',
+      user_id: 'user',
+      date: new Date(2020, 4, 20, 14, 0, 0),
+    });
+
+
+    const app2 = await fakeAppointmentsRepository.create({
+      provider_id: 'provider',
+      user_id: 'user',
+      date: new Date(2020, 4, 20, 15, 0, 0),
+    });
+
+    const appointmentsList = await listProviderAppointmentService.execute({
+      provider_id: 'provider',
+      year: 2020,
+      month: 5,
+      day: 20,
+    });
+
+    console.log(appointmentsList);
+
+    expect(appointmentsList).toEqual([app1, app2]);
+  });
+});
+
