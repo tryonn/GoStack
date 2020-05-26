@@ -25,4 +25,4 @@ class NotificationsRepository implements INotificationsRepository {
 
 }
 
-export default Notification;
+export default NotificationsRepository;
