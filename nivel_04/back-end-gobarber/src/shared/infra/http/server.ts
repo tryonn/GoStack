@@ -13,6 +13,7 @@ import '@shared/infra/typeorm/index';
 import '@shared/container/index';
 
 import AppError from '@shared/errors/AppError';
+import { errors } from 'celebrate';
 
 const app = express();
 
@@ -20,6 +21,8 @@ app.use(cors());
 app.use(express.json());
 app.use('/files', express.static(uploadConfig.uploadsFolder));
 app.use(Route);
+
+app.use(errors());
 
 app.use((err: Error, request: Request, response: Response, next: NextFunction) => {
 
