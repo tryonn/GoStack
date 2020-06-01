@@ -6,6 +6,8 @@ import IMailProvider from './MailProvider/models/IMailProvider';
 
 import IMailTemplateProvider from './MailTemplateProvider/models/IMailTemplateProvider';
 import HadlebarsMailTemplaProvider from './MailTemplateProvider/implementations/HandlebarsMailTemplateProvider';
+import SESMailProvider from './MailProvider/implementations/SESMailProvider';
+import mail from '@config/mail';
 
 container.registerSingleton<IStorageProvider>(
   'StorageProvider',
@@ -19,5 +21,5 @@ container.registerSingleton<IMailTemplateProvider>(
 
 container.registerInstance<IMailProvider>(
   'MailProvider',
-  container.resolve(EtherealMailProvider),
+  mail.drvier === 'ethereal' ? container.resolve(EtherealMailProvider) : container.resolve(SESMailProvider),
 );
