@@ -3,6 +3,7 @@ import AppError from '@shared/errors/AppError';
 import IUserRepository from "../repositories/IUserRepository";
 import { inject, injectable } from "tsyringe";
 import IHashProvider from "../providers/HashProvider/models/IHashProvider";
+import ICacheProvider from "@shared/container/providers/CacheProvider/models/ICacheProvider";
 
 interface IRequest {
   name: string,
@@ -19,6 +20,9 @@ class CreateUserService {
 
     @inject('HashProvider')
     private hasProvider: IHashProvider,
+
+    @inject('RedisCacheProvider')
+    private redisCacheProvider: ICacheProvider,
   ) { };
 
   public async execute({ name, email, password }: IRequest): Promise<User> {
@@ -35,6 +39,8 @@ class CreateUserService {
       email,
       password: hashedPassword
     });
+
+    await this.redisCacheProvider.invalidatePrefix('providers-list');
 
     return user;
 
