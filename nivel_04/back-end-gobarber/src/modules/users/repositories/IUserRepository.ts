@@ -1,5 +1,4 @@
 import User from '@modules/users/infra/typeorm/entities/User';
-import ICreateAppointmentsDTO from '../dtos/ICreateUserDTO';
 import ICreateUserDTO from '../dtos/ICreateUserDTO';
 import IFindAllProvidersDTO from '../dtos/IFindAllProvidersDTO';
 

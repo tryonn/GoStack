@@ -1,8 +1,8 @@
 import { inject, injectable } from 'tsyringe';
+import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
+import IAppointmentsRepository from '../repositories/IAppointmentsRepository';
 import Appointment from '@modules/appointments/infra/typeorm/entities/Appointment';
 
-import IAppointmentsRepository from '../repositories/IAppointmentsRepository';
-import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 
 interface IRequest {
   provider_id: string;
@@ -18,8 +18,8 @@ class ListProviderAppointmentsServices {
     @inject('AppointmentsRepository')
     private appointmentsRepository: IAppointmentsRepository,
 
-    @inject('CacheProvider')
-    private cacheProvider: ICacheProvider,
+    @inject('RedisCacheProvider')
+    private redisCacheProvider: ICacheProvider,
   ) { }
 
   public async execute({ provider_id, year, month, day }: IRequest): Promise<Appointment[]> {
@@ -28,7 +28,7 @@ class ListProviderAppointmentsServices {
       provider_id, year, month, day,
     });
 
-    await this.cacheProvider.save('asa', 'asa');
+    await this.redisCacheProvider.save('ads', 'ads');
 
     return appointments;
   }
