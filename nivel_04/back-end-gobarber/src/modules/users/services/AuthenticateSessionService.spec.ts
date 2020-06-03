@@ -4,12 +4,14 @@ import CreateUserService from '../services/CreateUserService';
 
 import AppError from '@shared/errors/AppError';
 import FakeHashProvider from '../providers/HashProvider/fakes/FakeHashProvider';
+import FakeRedisCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeRedisCacheProvider';
 
 let fakeUserRepository: FakeUserRepository;
 let fakeHashProvider: FakeHashProvider;
 
 let authService: AuthenticateSessionService;
 let createUserService: CreateUserService;
+let fakeRedisCacheProvider: FakeRedisCacheProvider;
 
 describe('AuthenticateSessionService', () => {
 
@@ -17,9 +19,10 @@ describe('AuthenticateSessionService', () => {
 
     fakeUserRepository = new FakeUserRepository();
     fakeHashProvider = new FakeHashProvider();
+    fakeRedisCacheProvider = new FakeRedisCacheProvider();
 
     authService = new AuthenticateSessionService(fakeUserRepository, fakeHashProvider);
-    createUserService = new CreateUserService(fakeUserRepository, fakeHashProvider);
+    createUserService = new CreateUserService(fakeUserRepository, fakeHashProvider, fakeRedisCacheProvider);
 
   });
 

@@ -39,14 +39,6 @@ describe('ListProviderDayAvailabilityService', () => {
       day: 20,
     });
 
-    /*
-        const availability = await listProviderDayAvailabilityService.execute({
-          provider_id: 'user',
-          month: 5,
-          day: 20,
-          year: 2020,
-        });*/
-
     expect(availability).toEqual(
       expect.arrayContaining([
         { hour: 8, available: false },

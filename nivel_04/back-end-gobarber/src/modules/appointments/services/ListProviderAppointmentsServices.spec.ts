@@ -1,15 +1,18 @@
 import FakeAppointmentsRepository from '../repositories/fakes/FakeAppoimentsRepository';
 import ListProviderAppointmentsServices from './ListProviderAppointmentsServices';
+import FakeRedisCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeRedisCacheProvider';
 
 let fakeAppointmentsRepository: FakeAppointmentsRepository;
 let listProviderAppointmentService: ListProviderAppointmentsServices;
+let fakeRedisCacheProvider: FakeRedisCacheProvider;
 
 describe('ListProviderAppointmentsServices', () => {
 
   beforeEach(() => {
 
     fakeAppointmentsRepository = new FakeAppointmentsRepository();
-    listProviderAppointmentService = new ListProviderAppointmentsServices(fakeAppointmentsRepository);
+    fakeRedisCacheProvider = new FakeRedisCacheProvider();
+    listProviderAppointmentService = new ListProviderAppointmentsServices(fakeAppointmentsRepository, fakeRedisCacheProvider);
 
   });
 
@@ -36,7 +39,6 @@ describe('ListProviderAppointmentsServices', () => {
       day: 20,
     });
 
-    console.log(appointmentsList);
 
     expect(appointmentsList).toEqual([app1, app2]);
   });

@@ -3,10 +3,12 @@ import CreateUserService from './CreateUserService';
 
 import AppError from '@shared/errors/AppError';
 import FakeHashProvider from '../providers/HashProvider/fakes/FakeHashProvider';
+import FakeRedisCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeRedisCacheProvider';
 
 let fakeUserRepository: FakeUserRepository;
 let fakeHashProvider: FakeHashProvider;
 let createUserService: CreateUserService;
+let fakeRedisCacheProvider: FakeRedisCacheProvider;
 
 describe('CreateUser', () => {
 
@@ -14,7 +16,9 @@ describe('CreateUser', () => {
 
     fakeUserRepository = new FakeUserRepository();
     fakeHashProvider = new FakeHashProvider();
-    createUserService = new CreateUserService(fakeUserRepository, fakeHashProvider);
+    fakeRedisCacheProvider = new FakeRedisCacheProvider();
+
+    createUserService = new CreateUserService(fakeUserRepository, fakeHashProvider, fakeRedisCacheProvider);
 
   });
 
