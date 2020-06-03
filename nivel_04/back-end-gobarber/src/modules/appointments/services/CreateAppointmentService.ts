@@ -5,6 +5,7 @@ import AppError from '@shared/errors/AppError';
 import { startOfHour, isBefore, getHours, format } from 'date-fns';
 import IAppointmentsRepository from '../repositories/IAppointmentsRepository';
 import INotificationsRepository from '@modules/notifications/repositories/INotificationsRepository';
+import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 
 interface IRequest {
   provider_id: string;
@@ -20,7 +21,10 @@ class CreateAppointmentService {
     private appointmentsRepository: IAppointmentsRepository,
 
     @inject('NotificationsRepository')
-    private notificationsRepository: INotificationsRepository
+    private notificationsRepository: INotificationsRepository,
+
+    @inject('RedisCacheProvider')
+    private redisCacheProvider: ICacheProvider,
   ) { }
 
   public async execute({ user_id, date, provider_id }: IRequest): Promise<Appointment> {
@@ -54,6 +58,9 @@ class CreateAppointmentService {
       recipient_id: provider_id,
       content: `Novo agendamento para dia ${dateFormatted}`,
     });
+
+    let cacheKey = `provider-appointments:${provider_id}:${format(appointmentDate, 'yyyy-M-d')}`;
+    await this.redisCacheProvider.invalidate(cacheKey);
 
     return appointment;
   }

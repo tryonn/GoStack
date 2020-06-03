@@ -16,6 +16,8 @@ appointmentsRouter.post('/', celebrate({
     date: Joi.date(),
   }
 }), appointmnesController.create);
+
+
 appointmentsRouter.post('/ne', providerAppointmnesController.index);
 
 export default appointmentsRouter;
