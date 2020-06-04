@@ -1,6 +1,5 @@
 import { Response, Request } from "express";
 import { container } from "tsyringe";
-import SendForgotPasswordEmailService from "@modules/users/services/SendForgotPasswordEmailService";
 import ResetPasswordService from "@modules/users/services/ResetPasswordService";
 
 

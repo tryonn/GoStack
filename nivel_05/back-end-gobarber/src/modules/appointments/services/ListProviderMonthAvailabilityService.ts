@@ -1,7 +1,5 @@
 import "reflect-metadata"
 import { injectable, inject } from 'tsyringe';
-import IUserRepository from "@modules/users/repositories/IUserRepository";
-import User from "@modules/users/infra/typeorm/entities/User";
 import IAppointmentsRepository from '../repositories/IAppointmentsRepository';
 import { getDaysInMonth, getDate, isAfter } from "date-fns";
 

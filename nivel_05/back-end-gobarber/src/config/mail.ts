@@ -1,5 +1,5 @@
 interface IMailConfig {
-  drvier: 'ethereal' | 'ses';
+  driver: 'ethereal' | 'ses';
 
   defaults: {
     from: {
@@ -18,4 +18,4 @@ export default {
       name: 'Alguem Fulano',
     },
   },
-} as unknown as IMailConfig;
+} as IMailConfig;

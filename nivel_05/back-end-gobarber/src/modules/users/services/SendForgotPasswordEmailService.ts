@@ -1,7 +1,9 @@
-import User from "@modules/users/infra/typeorm/entities/User";
+import "reflect-metadata"
+
+import { inject, injectable } from "tsyringe";
+
 import AppError from '@shared/errors/AppError';
 import IUserRepository from "../repositories/IUserRepository";
-import { inject, injectable } from "tsyringe";
 import IMailProvider from "@shared/container/providers/MailProvider/models/IMailProvider";
 import IUserTokenRepository from "../repositories/IUserTokenRepository";
 
@@ -15,6 +17,7 @@ interface IRequest {
 class SendForgotPasswordEmailService {
 
   constructor(
+
     @inject('UsersRepository')
     private usersRepository: IUserRepository,
 
@@ -22,9 +25,11 @@ class SendForgotPasswordEmailService {
     private mailProvider: IMailProvider,
 
     @inject('UserTokensRepository')
-    private userTokenRepository: IUserTokenRepository
+    private userTokenRepository: IUserTokenRepository,
 
-  ) { };
+  ) {
+    console.log('wewe');
+  };
 
   public async execute({ email }: IRequest): Promise<void> {
 
@@ -48,7 +53,7 @@ class SendForgotPasswordEmailService {
         file: forogotPasswordTemplate,
         variables: {
           name: user.name,
-          link: `${process.env.APP_WEB_URL}/reset_password?token=${token}`,
+          link: `${process.env.APP_WEB_URL}/forgot-password?token=${token}`,
         }
       }
     });

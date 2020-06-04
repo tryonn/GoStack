@@ -7,9 +7,24 @@ import mailConfig from '@config/mail';
 const providers = {
   ethereal: container.resolve(EtherealMailProvider),
   ses: container.resolve(SESMailProvider),
-}
+};
 
+/*
+container.registerInstance<IMailProvider>(
+  'MailProvider',
+  providers.ethereal,
+);
+*/
+
+/*
+ bkp
 container.registerInstance<IMailProvider>(
   'MailProvider',
   providers[mailConfig.drvier],
 )
+*/
+
+container.registerInstance<IMailProvider>(
+  'MailProvider',
+  providers[mailConfig.driver],
+);

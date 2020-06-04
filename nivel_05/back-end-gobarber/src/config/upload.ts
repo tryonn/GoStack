@@ -14,7 +14,7 @@ interface IUploadConfig {
     storage: StorageEngine
   };
 
-  config: {
+  configs: {
     disk: {};
     aws: {
       bucket: string,
@@ -23,10 +23,9 @@ interface IUploadConfig {
 }
 
 export default {
-  drvier: process.env.STORAGE_DRIVER,
+  driver: process.env.STORAGE_DRIVER,
   tmpFolder,
   uploadsFolder: path.resolve(tmpFolder, 'uploads'),
-
   multer: {
     disk: {
       storage: multer.diskStorage({
@@ -39,8 +38,7 @@ export default {
       }),
     }
   },
-
-  config: {
+  configs: {
     disk: {},
     aws: {
       bucket: 'app-gobarber-2',

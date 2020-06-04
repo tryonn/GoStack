@@ -16,6 +16,10 @@ export default class EtherealMailProvider implements IMailProvider {
     private mailTemplateProvider: IMailTemplateProvider,
 
   ) {
+
+
+    console.log('Ethereal');
+
     nodemailer.createTestAccount().then(account => {
       const transporter = nodemailer.createTransport({
 

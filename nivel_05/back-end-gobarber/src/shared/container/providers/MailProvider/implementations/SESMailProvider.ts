@@ -18,6 +18,10 @@ export default class SESMailProvider implements IMailProvider {
     private mailTemplateProvider: IMailTemplateProvider,
 
   ) {
+
+    console.log('ses');
+
+
     this.client = nodemailer.createTransport({
       SES: new aws.SES({
         apiVersion: '2010-12-01',

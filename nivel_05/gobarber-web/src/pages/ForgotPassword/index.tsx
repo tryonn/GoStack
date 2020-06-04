@@ -40,12 +40,14 @@ const ForgotPassword: React.FC = () => {
 
             await schema.validate(data, { abortEarly: false, });
 
-            await api.post('/users', data);
+            await api.post('/password/forgot', {
+                email: data.email,
+            });
 
             addToast({
                 type: 'success',
-                title: 'Cadastro',
-                description: 'Você já pode fazer seu logon no GoBarber'
+                title: 'E-mail de recuperação enviado',
+                description: 'Enviamos um email para confirmar a recuperação de senha, cheque sua caixa de entrada'
             });
 
         } catch (e) {

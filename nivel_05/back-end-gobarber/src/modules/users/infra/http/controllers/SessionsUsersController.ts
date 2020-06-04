@@ -4,7 +4,6 @@ import { container } from 'tsyringe';
 import AuthenticateSessionService from '@modules/users/services/AuthenticateSessionService';
 
 import { classToClass } from 'class-transformer';
-import User from "../../typeorm/entities/User";
 
 export default class SessionsUsersController {
 
