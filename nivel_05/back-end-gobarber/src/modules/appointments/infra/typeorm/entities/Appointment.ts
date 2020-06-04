@@ -19,7 +19,17 @@ class Appointment {
   @Column()
   user_id: String;
 
-  @ManyToOne(() => User)
+  /*
+   - quando trazer os dados do appointments vai
+   - trazer todos os dados do user
+
+  @ManyToOne(() => User, { eager: true })
+  @JoinColumn({ name: 'user_id' })
+  user: User;
+
+  */
+
+  @ManyToOne(() => User, { lazy: true })
   @JoinColumn({ name: 'user_id' })
   user: User;
 
