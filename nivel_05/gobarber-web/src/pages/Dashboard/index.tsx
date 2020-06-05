@@ -1,12 +1,14 @@
 import React from 'react';
 
-import { Container, Header, HeaderContent, Profile } from './styles';
+import { Container, Header, HeaderContent, Profile, Content, Schedule, NextAppontment, Calendar } from './styles';
 
 import logoImg from '../../assets/logo.svg';
-import { FiPower } from 'react-icons/fi';
+import { FiPower, FiClock } from 'react-icons/fi';
 import { useAuth } from '../../hook/Auth';
 
 const Dashboard: React.FC = () => {
+
+    // <img src={user.avatar_url} alt={user.name} />
 
     const { singnOut, user } = useAuth();
     return (
@@ -17,7 +19,8 @@ const Dashboard: React.FC = () => {
                     <img src={logoImg} alt="GoBarber" />
 
                     <Profile>
-                        <img src={user.avatar_url} alt={user.name} />
+
+                        <img src="https://avatars3.githubusercontent.com/u/625433?s=460&u=102d383629d476e2c6817a204435a141bb895cf9&v=4" alt="simao" />
                         <div>
                             <span>Bem-Vindo</span>
                             <strong>{user.name}</strong>
@@ -29,7 +32,35 @@ const Dashboard: React.FC = () => {
                     </button>
                 </HeaderContent>
             </Header>
+
+            <Content>
+                <Schedule>
+                    <h1>Horário agendados</h1>
+                    <p>
+                        <span>Hoje</span>
+                        <span>Dia 06</span>
+                        <span>Segunda-feira</span>
+                    </p>
+
+                    <NextAppontment>
+                        <strong>Atendimento a seguir</strong>
+                        <div>
+                            <img src="https://avatars3.githubusercontent.com/u/625433?s=460&u=102d383629d476e2c6817a204435a141bb895cf9&v=4" alt="simao" />
+
+                            <strong>Simao Menezes</strong>
+                            <span>
+                                <FiClock />
+                                08:00
+                            </span>
+                        </div>
+                    </NextAppontment>
+                </Schedule>
+                <Calendar>
+
+                </Calendar>
+            </Content>
         </Container>
+
 
     );
 };
