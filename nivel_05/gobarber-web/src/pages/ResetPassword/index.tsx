@@ -1,5 +1,5 @@
 import React, { useRef, useCallback } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import * as Yup from 'yup';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
@@ -16,6 +16,7 @@ import { Container, Content, Background, AnimatorContainer } from './styles';
 
 import Button from '../../components/Button';
 import Input from '../../components/Input';
+import API from '../../services/api';
 
 interface ResetPasswordFormData {
     password: string;
@@ -28,6 +29,7 @@ const ResetPassword: React.FC = () => {
 
     const { addToast } = useToast();
     const history = useHistory();
+    const location = useLocation();
 
     const handleOnSubmit = useCallback(async (data: ResetPasswordFormData) => {
 
@@ -44,7 +46,20 @@ const ResetPassword: React.FC = () => {
 
             await schema.validate(data, { abortEarly: false, });
 
-            history.push('/signin');
+            const { password, password_confirmation } = data;
+            const token = location.search.replace('?token=', '');
+
+            if (!token) {
+                throw new Error();
+            }
+
+            await API.post('/password/reset', {
+                password,
+                password_confirmation,
+                token
+            });
+
+            history.push('/');
 
         } catch (e) {
             if (e instanceof Yup.ValidationError) {
@@ -58,7 +73,7 @@ const ResetPassword: React.FC = () => {
                 description: 'Ocorreu um erro  ao resetar senha, tente novamente',
             });
         }
-    }, [addToast, history]);
+    }, [addToast, history, location.search]);
 
 
     return (
