@@ -11,7 +11,7 @@ import API from '../../services/api';
 
 interface MonthAvailabilityItem {
     day: number;
-    availability: boolean;
+    available: boolean;
 }
 
 const Dashboard: React.FC = () => {
@@ -38,19 +38,21 @@ const Dashboard: React.FC = () => {
 
         API.get(`/providers/${provider_id}/month-availability`, {
             params: {
-                month: currentMonth.getMonth(),
+                month: currentMonth.getMonth() + 1,
                 year: currentMonth.getFullYear(),
             }
         }).then(response => {
+            console.log("as" + response.data)
+            console.log("222" + response.data);
             setMonthAvailability(response.data);
         });
 
     }, [currentMonth, user.id]);
 
 
-    const disableDays = useMemo(() => {
+    const disabledDays = useMemo(() => {
         const dates = monthAvailability
-            .filter(monthDays => monthDays.availability === false).map(monthDays => {
+            .filter(monthDays => monthDays.available === false).map(monthDays => {
 
                 const month = currentMonth.getMonth();
                 const year = currentMonth.getFullYear();
@@ -162,7 +164,7 @@ const Dashboard: React.FC = () => {
                     <DayPicker
                         weekdaysShort={['D', 'S', 'T', 'Q', 'Q', 'S', 'S',]}
                         fromMonth={new Date()}
-                        disabledDays={[{ daysOfWeek: [0, 6] }, ...disableDays]}
+                        disabledDays={[{ daysOfWeek: [0, 6] }, ...disabledDays]}
                         modifiers={{
                             available: { daysOfWeek: [1, 2, 3, 4, 5] },
                         }}
