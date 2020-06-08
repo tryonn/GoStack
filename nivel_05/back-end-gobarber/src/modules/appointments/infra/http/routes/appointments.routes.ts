@@ -18,6 +18,6 @@ appointmentsRouter.post('/', celebrate({
 }), appointmnesController.create);
 
 
-appointmentsRouter.post('/ne', providerAppointmnesController.index);
+appointmentsRouter.get('/me', providerAppointmnesController.index);
 
 export default appointmentsRouter;

@@ -19,8 +19,8 @@ import { errors } from 'celebrate';
 
 const app = express();
 
-app.use(rateLimiter);
 app.use(cors());
+app.use(rateLimiter);
 app.use(express.json());
 app.use('/files', express.static(uploadConfig.uploadsFolder));
 app.use(Route);
