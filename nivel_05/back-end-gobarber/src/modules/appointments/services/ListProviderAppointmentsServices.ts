@@ -34,7 +34,7 @@ class ListProviderAppointmentsServices {
         provider_id, year, month, day,
       });
 
-      console.log('Buscou no Banco');
+      console.log(appointments);
 
 
       await this.redisCacheProvider.save(
