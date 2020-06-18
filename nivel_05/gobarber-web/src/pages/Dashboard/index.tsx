@@ -137,7 +137,7 @@ const Dashboard: React.FC = () => {
 
                     <Profile>
 
-                        <img src="https://avatars3.githubusercontent.com/u/625433?s=460&u=102d383629d476e2c6817a204435a141bb895cf9&v=4" alt="simao" />
+                        <img src={user.avatar_url} alt={user.name} />
                         <div>
                             <span>Bem-Vindo</span>
                             <Link to="/profile">
@@ -166,7 +166,7 @@ const Dashboard: React.FC = () => {
                             <NextAppontment>
                                 <strong>Atendimento a seguir</strong>
                                 <div>
-                                    <img src="https://avatars3.githubusercontent.com/u/625433?s=460&u=102d383629d476e2c6817a204435a141bb895cf9&v=4"
+                                    <img src={nextAppointment.__user__.avatar_url}
                                         alt={nextAppointment.__user__.name} />
 
                                     <strong>{nextAppointment.__user__.name}</strong>
@@ -192,7 +192,7 @@ const Dashboard: React.FC = () => {
                                         {appointment.hourFormatter}
                                     </span>
                                     <div>
-                                        <img src="https://avatars3.githubusercontent.com/u/625433?s=460&u=102d383629d476e2c6817a204435a141bb895cf9&v=4"
+                                        <img src={appointment.__user__.avatar_url}
                                             alt={appointment.__user__.name} />
 
                                         <strong>{appointment.__user__.name}</strong>
@@ -217,7 +217,7 @@ const Dashboard: React.FC = () => {
                                         {appointment.hourFormatter}
                                     </span>
                                     <div>
-                                        <img src="https://avatars3.githubusercontent.com/u/625433?s=460&u=102d383629d476e2c6817a204435a141bb895cf9&v=4"
+                                        <img src={appointment.__user__.avatar_url}
                                             alt={appointment.__user__.name} />
                                         <strong>{appointment.__user__.name}</strong>
                                     </div>

@@ -20,6 +20,9 @@ usersRouter.post('/', celebrate({
     password: Joi.string().required(),
   }
 }), usersController.create);
+
+
+
 usersRouter.patch('/avatar', ensureAuthenticated, upload.single('avatar'), userAvatarController.update);
 
 

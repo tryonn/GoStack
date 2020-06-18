@@ -19,6 +19,7 @@ class DiskStorageProvider implements IStorageProvider {
   }
 
   public async deleteFile(file: string): Promise<void> {
+    console.log("file::: " + file);
     const filePath = path.resolve(uploadConfig.uploadsFolder, file);
 
     try {
